@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IFE JavaScript Task 01</title>
+    <style>
+    html, body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Micorosoft Yahei;
+    }
+    </style>
+</head>
+<body>
+<!-- 功能：用户可以在输入框中输入任何内容，点击“确认填写”按钮后，用户输入的内容会显示在“您输入的值是”文字的右边 -->
+    <label>请输入北京今天空气质量:
+        <input id="aqi-input" 
+               type="text" 
+               placeholder="请输入空气质量..."></label>
+        <button id="button">确认填写</button>
+    <div>您输入的值是：
+        <span id="aqi-display">尚无录入</span>
+    </div>
+<script type="text/javascript">
+        $ = (selector) => {
+            /*
+             * @param {String} selector 元素selector
+             * @return {Elements} 根据selector获得的元素集合  
+             */
+            let nodeList = document.body.querySelectorAll(selector)
+            if (nodeList.length) {
+                return nodeList
+            }
+        }
+        (function() {
+          /*	
+          在注释下方写下代码
+          给按钮button绑定一个点击事件
+          在事件处理函数中
+          获取aqi-input输入的值，并显示在aqi-display中
+          */
+        let btn = $('button#button')[0]
+        let aqiInput = $('input#aqi-input')[0]
+        let aqiDisplay = $('span#aqi-display')[0]
+
+        handler =  () => {
+            /* 
+             * 处理逻辑 
+             * */
+             if (!!aqiInput.value) {
+                // 若用户输入不为空
+                let num = parseInt(aqiInput.value)
+                if (num !== NaN && (num > 0 && num < 1000)) {
+                    // num为数字且值域在0-1000之间
+                    aqiDisplay.innerHTML = aqiInput.value
+                } else {
+                    alert(`${aqiInput.value}不是0 - 1000的数字，请重新填写！`)
+                }
+            }
+        }
+        btn.addEventListener('click', () => {
+            // 点击button确认            
+            handler()
+        })
+        aqiInput.onkeyup = (event) => {
+            if (event.keyCode === 13) {
+                // enter键确认
+                handler()
+            }
+          }
+        })();
+</script>
+</body>
+</html>
